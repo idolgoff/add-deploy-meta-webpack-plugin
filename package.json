@@ -26,6 +26,6 @@
         "webpack": "^5.91.0"
     },
     "dependencies": {
-        "meta-version": "^1.0.1"
+        "meta-version": "^1.0.2"
     }
 }
