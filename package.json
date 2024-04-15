@@ -1,6 +1,6 @@
 {
     "name": "add-deploy-meta-webpack-plugin",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "description": "AddDeployMetaWebpackPlugin: Supercharge your webpack with this plugin! Injects deploy and bundle metadata into your global window object. Get git, build, and package details at your fingertips. Debug smarter, not harder 😊",
     "main": "index.js",
     "scripts": {
