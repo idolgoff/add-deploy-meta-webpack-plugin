@@ -12,7 +12,7 @@ test("AddDeployMetaWebpackPlugin test", (done) => {
         context: __dirname, // This is the root of your project
         entry: "./dummy.js",
         output: {
-            path: __dirname + "/dist",
+            path: "/dist",
             filename: "main.js",
         },
         plugins: [
@@ -32,7 +32,6 @@ test("AddDeployMetaWebpackPlugin test", (done) => {
         }
 
         const outputCode = fs.readFileSync("/dist/main.js").toString();
-        console.log(outputCode);
 
         expect(outputCode).toContain('"name":"add-deploy-meta-webpack-plugin"');
 

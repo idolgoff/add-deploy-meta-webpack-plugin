@@ -1,5 +1,7 @@
 .husky/
+.github
 node_modules/
+coverage
 dist
 .git
 .gitignore
