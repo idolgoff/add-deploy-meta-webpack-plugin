@@ -1,0 +1,31 @@
+{
+    "name": "add-deploy-meta-webpack-plugin",
+    "version": "0.0.1",
+    "description": "Use AddToGlobalWebpackPlugin to inject global variables into your app from your Webpack config. Ideal for setting up global configs, not sensitive API keys, or feature flags.",
+    "main": "index.js",
+    "scripts": {
+        "test": "jest"
+    },
+    "keywords": [
+        "Webpack",
+        "Plugin",
+        "Global Variables",
+        "CI/CD",
+        "Deploy",
+        "Configuration"
+    ],
+    "author": "Dolgov Ivan <dolgov.ivan@gmail.com>",
+    "license": "ISC",
+    "peerDependencies": {
+        "schema-utils": "^4.2.0"
+    },
+    "devDependencies": {
+        "fs-require": "^1.6.0",
+        "jest": "^29.7.0",
+        "memfs": "^4.8.1",
+        "webpack": "^5.91.0"
+    },
+    "dependencies": {
+        "meta-version": "^1.0.1"
+    }
+}

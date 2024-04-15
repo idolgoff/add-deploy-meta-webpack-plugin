@@ -1,0 +1,16 @@
+.husky/
+node_modules/
+dist
+.git
+.gitignore
+.commitlintrc.js
+.eslintignore
+.eslintrc.js
+.nvmrc
+.prettierignore
+.prettierrc.js
+.stylelintignore
+jest.config.js
+postcss.config.js
+tsconfig.json
+stylelint.config.js
