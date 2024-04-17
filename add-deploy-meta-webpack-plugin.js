@@ -1,5 +1,6 @@
 const { validate } = require("schema-utils");
 const { metaVersion } = require("meta-version");
+const AddToGlobalWebpackPlugin = require("add-to-global-webpack-plugin");
 
 const schema = {
     type: "object",
@@ -42,59 +43,20 @@ class AddDeployMetaWebpackPlugin {
     }
 
     apply(compiler) {
-        compiler.hooks.compilation.tap(
-            "AddDeployMetaWebpackPlugin",
-            (compilation) => {
-                compilation.hooks.optimizeChunkAssets.tapAsync(
-                    "AddDeployMetaWebpackPlugin",
-                    (chunks, callback) => {
-                        chunks.forEach((chunk) => {
-                            if (chunk.name === "main") {
-                                chunk.files.forEach((file) => {
-                                    const asset = compilation.assets[file];
-                                    let content = asset.source();
-                                    const self = this;
+        const meta = metaVersion();
+        // Possible to much unnecessary info
+        delete meta.package.dependencies;
 
-                                    const meta = metaVersion();
+        const valueToInject = {
+            ...meta,
+            extraData: this.options.extraData,
+        };
 
-                                    // Possible to much unnecessary info
-                                    delete meta.package.dependencies;
-
-                                    const valueToInject = {
-                                        ...meta,
-                                        extraData: self.options.extraData,
-                                    };
-
-                                    // Inject the function and use it to assign the value
-                                    const injection = `
-(function () {
-    // Function to safely assign a value to a path inside an object
-    const assignValueToPath = (path, value, obj) => {
-        const keys = path.split(".");
-        keys.reduce((acc, key, index) => {
-            acc[key] = index === keys.length - 1 ? value : acc[key] || {};
-            return acc[key];
-        }, obj);
-    };
-
-    const path = "${self.options.path}";
-    const value = ${JSON.stringify(valueToInject)};
-    const isInNode = Boolean(typeof process !== 'undefined' && process.versions && process.versions.node);
-    assignValueToPath(path, value, isInNode ? global : window);
-})();\n`;
-                                    content = injection + content;
-                                    compilation.assets[file] =
-                                        new compiler.webpack.sources.RawSource(
-                                            content,
-                                        );
-                                });
-                            }
-                        });
-                        callback();
-                    },
-                );
-            },
-        );
+        const addToGlobalWebpackPlugin = new AddToGlobalWebpackPlugin({
+            path: this.options.path,
+            value: valueToInject,
+        });
+        addToGlobalWebpackPlugin.apply(compiler);
     }
 }
 

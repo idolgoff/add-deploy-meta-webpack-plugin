@@ -26,6 +26,7 @@
         "webpack": "^5.91.0"
     },
     "dependencies": {
+        "add-to-global-webpack-plugin": "^0.0.2",
         "meta-version": "^1.0.2"
     }
 }
